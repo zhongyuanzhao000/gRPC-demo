@@ -1,0 +1,20 @@
+// 使用该proto文件可以定义交互的服务接口，基于该文件编译成的源文件可以分别复制到 client端和server端，便于两者使用
+
+syntax = "proto3"; // 定义语法类型，通常proto3好于proto2，proto2好于proto1，如果不指定，默认使用proto2，必须位于第一行
+
+package hello; // 定义作用域
+option java_multiple_files = false; // 表示下面的message不需要编译成多个java文件
+option java_outer_classname = "HelloMessage"; // 表示下面的message编译成的java类文件的名字
+option java_package = "grpc"; //指定该proto文件编译成的java源文件的包名
+
+service Hello {  // 定义服务
+  rpc sayHello(HelloRequest) returns(HelloResponse) {}
+}
+
+message HelloRequest { // 定义请求的消息体
+  string name = 1;
+}
+
+message HelloResponse { // 定义回复的消息体
+  string message = 1;
+}
